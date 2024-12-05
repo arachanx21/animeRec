@@ -26,19 +26,25 @@ Solusi yang dapat dilakukan untuk memenuhi goals proyek ini diantaranya sebagai 
 - Menampilkan detail data yang diuji dengan hasilnya untuk validasi kebenaran dari nilai metriknya
 
 ## Data Understanding
-Dataset yang digunakan pada proyek kali ini dibuat oleh Yueming yang di upload ke Kaggle pada tahun 2017. Sumber dataset: [IMDB 5000 Movie Dataset](https://www.kaggle.com/datasets/carolzhangdc/imdb-5000-movie-dataset). Pada dataset ini terdiri dari 5043 baris dan 28 kolom data. Kondisi khusus dari data:
+Dataset yang digunakan pada proyek kali ini dibuat oleh CooperUnion yang terakhir diperbarui ke Kaggle pada tahun 2016. Sumber dataset: [Anime Recommendations Database
+](https://www.kaggle.com/datasets/CooperUnion/anime-recommendations-database/data). Sumber data ini terdiri atas 2 set, anime dan rating. Pada dataset anime terdiri atas 12294 baris dan 7 kolom data. Kondisi khusus dari data:
 - memiliki jenis tipe data yang beragam untuk kolom-kolom yang ada diantaranya float64, int64, dan object
-- terdapat 6 kolom yang memiliki nilai yang lengkap atau bisa dikatakan kolom yang tidak memiliki nilai hilang, diantaranya genres, movie_title,num_voted_users, cast_total_facebook_likes, movie_imdb_link, dan imbd_score
-- terdapat data yang duplikat terutama pada kolom movie_title sebanyak 124
-- terdapat baris data yang memiliki nilai kosong sebanyak 301
+- Dataset anime terdiri atas 7 variabel. 3 variabel merupakan variabel numerik (anime_id dan member memiliki tipe data int64 sedangkan rating memiliki tipedata float), sedangkan sisanya merupakan variabel kategorikal.
+- terdapat data yang tidak memiliki kosong
+- tidak terdapat data duplikat
 
 Pada proyek ini, fitur yang digunakan adalah sebagai berikut beserta alasan:
 
 |Nama|Jenis|Tipe Data|Alasan|Jumlah Nilai Unik|
 |----|-----|---------|------|-----------------|
-|movie_title|independent|object|diperlukan untuk mencari film-film yang mirip dan mengembalikan nilai dalam bentuk nama-nama filmnya|4917|
-|genres|dependent|object|mewakili representasi dari sebuah film memiliki jalan cerita seperti apa|914|
-|content_rating|dependent|object|identifikasi mengenai segmen target penonton film|19|
+|anime_id|independent|int64|diperlukan untuk mencari film-film yang mirip dan mengembalikan nilai dalam bentuk id anime|12294|
+|name|dependent|object|judul anime|12292|
+|genre|dependent|object|genre anime|3264|
+|type|dependent|object|tipe anime (TV, Movie, OVA, ONA, dll)|6|
+|episodes|dependent|object|Jumlah episode di anime tersebut|187|
+|rating|dependent|float64|rata-rata rating anime dengan skala 10|598|
+|members|dependent|int64|jumlah anggota dalam komunitas anime tersebut|6706|
+
 
 Pada proyek ini, hanya melakukan EDA Univariate terhadap dua kolom yang menjadi dependent variable untuk model sistem rekomendasi film menggunakan content based filter berdasarkan genre dan content rating. Karena nilai unik berjumlah sangat banyak di 2 kolom tersebut, maka ditampilkan horizontal bar chart untuk nilai yang memiliki kemunculan paling banyak
 
