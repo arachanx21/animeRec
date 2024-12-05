@@ -64,7 +64,7 @@ Berikut merupakan aktifitas lainnya dilakukan pada tahap ini:
 |melakukan iterasi pemecahan data-data pada genre dan dicocokkan dan menempatkan nilai 1 pada genre hasil one-hot encoding|melengkapi nilai data pada one-hot encoding genre|(12017,50)|(12017,50)|
 
 **catatan**
-- ***proyek ini tidak menggunakan vectorizer*** karena sudah terwakilili dengan hasil onehot encoding untuk kolom genres dan content_rating. hasil dari onehot encoding sudah seperti vektor yang dihasilkan dari binary count vectorizer. selain itu,  pada proyek kali ini, tidak perlu menggunakn term-frequency karena dalam satu baris tidak ada perulangan kata, apalagi pada kolom genres, berbeda dengan kolom yang berkonteks paragraf memerlukan term-frequency untuk mengubah kata menjadi vektor.
+- ***proyek ini tidak menggunakan vectorizer*** karena sudah terwakilili dengan hasil onehot encoding untuk kolom genre. hasil dari onehot encoding sudah seperti vektor yang dihasilkan dari binary count vectorizer. selain itu,  pada proyek kali ini, secara manual melakukan term-frequency karena dalam satu baris data memiliki nilai-nilai yang berbeda yang perlu diubah dulu agar dapat menjadi vektor.
 
 ## Modeling
 
