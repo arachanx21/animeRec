@@ -46,17 +46,8 @@ Pada proyek ini, fitur yang digunakan adalah sebagai berikut beserta alasan:
 |members|dependent|int64|jumlah anggota dalam komunitas anime tersebut|6706|
 
 
-Pada proyek ini, hanya melakukan EDA Univariate terhadap dua kolom yang menjadi dependent variable untuk model sistem rekomendasi film menggunakan content based filter berdasarkan genre dan content rating. Karena nilai unik berjumlah sangat banyak di 2 kolom tersebut, maka ditampilkan horizontal bar chart untuk nilai yang memiliki kemunculan paling banyak
+Pada proyek ini,  tahapan EDA Univariate tidak dilakukan karena fitur utama untuk membuat model berbasis konten (content-based filtering) berdasarkan variabel genre yang memiliki tipe data list dalam bentuk string. Selain itu, satu anime dapat memiliki genre lebih dari satu. Hal ini akan menciptakan data overlapping memberikan interpretasi yang parsial pada interpretasi EDA.
 
-|Nama|Chart|Analisis|
-|----|-----|--------|
-|genres|![genre chart](https://github.com/user-attachments/assets/c0180fd2-9940-4062-bc99-3ad2edc955ff)|Sebagian besar film yang memiliki genre drama|
-|rating|![rating chart](https://github.com/user-attachments/assets/16f8b66c-94cf-4d48-ad39-9b128c05de71)|Sebagian besar film yang memiliki rating content R|
-
-Yang dilakukan pada tahap ini diantaranya:
-- Melihat ringkasan informasi struktur data dengan fungsi .info()
-- Menghapus kolom-kolom yang lainnya selain movie_title, genres, dan content_rating
-- Memeriksa jumlah nilai unik pada setiap kolom
 
 ## Data Preparation
 Pada tahap ini perlu mempersiapkan data agar mudah diproses oleh model, apalagi jika masih mengandung kolom-kolom yang bertipe data object yang perlu dilakukan encoding untuk mengubahnya menjadi numerik supaya dapat dihitung nilai cosine similarity nya.
@@ -65,12 +56,12 @@ Berikut merupakan aktifitas lainnya dilakukan pada tahap ini:
 
 |Aktifitas|Alasan|Ukuran dataset semula|Ukuran dataset sesudah preproses|
 |---------|------|---------------------|--------------------------------|
-|menghapus kolom yang lain dan menyisakan 3 kolom diantaranya movie_title, genres, dan content_rating|karena untuk pada proyek ini akan membuat sistem rekomendasi film berdasarkan genres dan content_rating saja|(5043,28)|(5043,3)|
-|menghapus nilai \xa0 pada kolom movie_title|agar tidak menjadi noise ketika pengguna mau mencari rekomendasi berdasarkan film yang sudah ditontonnya|(5043,3)|(5043,3)|
-|menghapus baris duplikat|karena nilai unik pada kolom movie_title sejumlah 4917 sehingga terdapat kemungkinan banyak baris data yang duplikat|(5043,3)|(4919,3)|
-|menghapus baris data yang memiliki nilai hilang|tidak bisa dilakukan imputasi karena akan menyebabkan kesalahan analitik|(4919,3)|(4618,3)|
-|melakukan one hot encoding terhadap kolom genres|supaya dapat dihitung nilai cosine similaritynya dengan representasi vektornya, one hot encoding dilakukan karena ini merupakan data kategorikal nominal bukan ordinal yang mengharuskan representasi urutan|(4618,3)|(4618,26)|
-|melakukan one hot encoding terhadap kolom content_rating|supaya dapat dihitung nilai cosine similaritynya dengan representasi vektornya, one hot encoding dilakukan karena ini merupakan data kategorikal nominal bukan ordinal yang mengharuskan representasi urutan||(4618,26)|(4618,43)|
+|Mengekstrak data-data genre yang merupakan list menjadi array unik|Nilai pada data genre merupakan list, sehingga perlu dibuat sebagai one hot encoding dari masing-masing genre|(12017,7)|(12017,7)|
+|membuat dataFrame hasil one-hot encoding dari data hasil array unik list genre|Mempersiapkan one-hot encoding data agar data terbaca oleh model|(12017,7)|(12017,7)|
+|menggabungkan anime id dengan hasil one-hot encoding|mempersiapkan data untuk vektorisasi|(0,0)|(12017,44)|
+|mengisi data gabungan yang tidak memiliki nilai 0|mempermudah proses vektorisasi agar ketika iterasi nilai-nilai pada genre, genre hasil one-hot encoding dapat diberikan nilai 1|(12017,44)|(12017,44)|
+|menggabungkan dataframe one-hot encoding dengan data anime awal dengan basis anime_id sebagai jembatan|persiapan iterasi genre dengan one-hot encoding|(12017,44)|(12017,50)|
+|melakukan iterasi pemecahan data-data pada genre dan dicocokkan dan menempatkan nilai 1 pada genre hasil one-hot encoding|melengkapi nilai data pada one-hot encoding genre|(12017,50)|(12017,50)|
 
 **catatan**
 - ***proyek ini tidak menggunakan vectorizer*** karena sudah terwakilili dengan hasil onehot encoding untuk kolom genres dan content_rating. hasil dari onehot encoding sudah seperti vektor yang dihasilkan dari binary count vectorizer. selain itu,  pada proyek kali ini, tidak perlu menggunakn term-frequency karena dalam satu baris tidak ada perulangan kata, apalagi pada kolom genres, berbeda dengan kolom yang berkonteks paragraf memerlukan term-frequency untuk mengubah kata menjadi vektor.
