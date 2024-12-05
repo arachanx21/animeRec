@@ -2,11 +2,10 @@
 
 ## Project Overview
 
-Pada proyek kali ini akan dibangun sistem rekomendasi anime yang memberikan hasil berupa daftar anime yang memiliki kemiripan (output) dengan genre anime yang diberikan (input). Membuat sistem rekomendasi anime ini berdasarkan genres dan rating penting karena memungkinkan rekomendasi yang lebih relevan dan sesuai dengan preferensi serta batasan individu pengguna. Genre membantu mengidentifikasi jenis film yang diminati pengguna, seperti action, slice of life, drama, dll, sehingga sistem dapat menawarkan pilihan yang sesuai dengan selera mereka. Sementara itu, content ratings memastikan bahwa rekomendasi anime sesuai dengan preferensi  sensitivitas terhadap konten tertentu, menjaga pengalaman menonton yang nyaman dan aman.  Dengan mempertimbangkan kedua aspek ini, sistem rekomendasi menjadi lebih akurat, personal, dan bertanggung jawab, meningkatkan kepuasan pengguna secara keseluruhan.
+Proyek ini membangun sistem rekomendasi anime yang memberikan hasil berupa daftar anime yang memiliki kemiripan (output) dengan genre anime yang diberikan (input). Sistem rekomendasi anime ini dibangun beradasarkan kemiripan genre suatu anime dan rating dari para pengguna. Genre membantu mengidentifikasi jenis film yang diminati pengguna, seperti action, slice of life, drama, dll, sehingga sistem dapat menawarkan pilihan yang sesuai dengan selera mereka. Sementara itu, content ratings dari user memastikan bahwa rekomendasi anime sesuai dengan preferensi  sensitivitas terhadap konten tertentu, menjaga pengalaman menonton yang nyaman dan aman.  Dengan mempertimbangkan kedua aspek ini, sistem rekomendasi menjadi lebih akurat, personal, dan bertanggung jawab, meningkatkan kepuasan pengguna secara keseluruhan.
 
 ### Background
-
-Seiring berjalannya waktu, ribuan film dirilis di seluruh dunia dari semua platform dan negara, sehingga menemukan film yang cocok menjadi bagian dari kehidupan hiburan dari sejak awal munculnya banyak industri film [1]. Terdapat berbagai genre di industri film yang membuat orang-orang tidak sempat menjelajah banyak genre karena keterbatasan waktu atau biaya [2]. Salah satu fitur umum yang disediakan oleh layanan aplikasi streaming adalah sistem yang menampilkan semua film yang berasal dari beragam tahun dan negara produksi, tidak hanya menampilkan film-film terbaru sehingga pengguna akan tertarik memanfaatka fiturnya[3]. Sistem rekomendasi bermanfaat bagi pelanggan dan perusahaan pemilik aplikasi, karena semakin puas pelanggan, semakin besar kemungkinan pengguna ingin menggunakan sistem untuk kemudahan dalam mengoperasikan aplikasi, sehingga akan berpeluang menambah pendapatan perusahaan [4].
+Terdapat ribuan anime yang beredar di berbagai platform. Dengan banyaknya anime ini membuat para penonton kesulitan memilih anime yang sesuai dengan kesuakaannya. Sehingga, dengan adanya sistem rekomendasi, hal ini akakn membantu para penonton untuk memilih anime untuk ditonton berdarkan kemiripan genre dan rating para penonton lainnya.
 
 ## Business Understanding
 
@@ -18,7 +17,7 @@ Berdasarkan latar belakang di atas, rincian masalahnya adalah **bagaimana memanf
 
 ### Goals
 
-Untuk menjawab pertanyaan masalah di atas, maka tujuan dari proyek ini adalah **mampu mengembangkan model yang sepresisi mungkin dalam memberikan daftar film sesuai genre yang disukai oleh penonton dengan model yang berbasis dengan konten (content-based filtering) dengan model yang mencapai metrik precision@N 85%**
+Untuk menjawab pertanyaan masalah di atas, maka tujuan dari proyek ini adalah **mampu mengembangkan model yang sepresisi mungkin dalam memberikan daftar film sesuai genre yang disukai oleh penonton dengan model yang berbasis dengan konten dan user (collaborative filtering) dengan model yang mencapai metrik root mean square dibawah 0.15%**
 
 ### Solution statements
 
