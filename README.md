@@ -63,6 +63,7 @@ Berikut merupakan aktifitas lainnya dilakukan pada tahap ini:
 |menggabungkan dataframe one-hot encoding dengan data anime awal dengan basis anime_id sebagai jembatan|persiapan iterasi genre dengan one-hot encoding|(12017,44)|(12017,50)|
 |melakukan iterasi pemecahan data-data pada genre dan dicocokkan dan menempatkan nilai 1 pada genre hasil one-hot encoding|melengkapi nilai data pada one-hot encoding genre|(12017,50)|(12017,50)|
 |Melakukan one-hot encoding pada variabel type|Fitur type ditambahkan agar model dapat memberikan kemiripan yang lebih baik|(12017,50)|(12017,56)|
+|Menghapus kolom type, member, ratings|data member dan ratings tidak diperlukan dan kolom type sudah direpresentasikan dengan one-hot encoding|(12017,56)|(12017,53)|
 
 **catatan**
 - ***proyek ini tidak menggunakan vectorizer*** karena sudah terwakilili dengan hasil onehot encoding untuk kolom genre. hasil dari onehot encoding sudah seperti vektor yang dihasilkan dari binary count vectorizer. selain itu,  pada proyek kali ini, secara manual melakukan term-frequency karena dalam satu baris data memiliki nilai-nilai yang berbeda yang perlu diubah dulu agar dapat menjadi vektor.
