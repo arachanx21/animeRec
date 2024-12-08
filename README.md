@@ -78,9 +78,9 @@ Yang dilakukan pada tahap ini diantaranya:
 
 |nama|deskripsi|tipe data|
 |----|---------|---------|
-|movie_title|judul film yang ingin mencari film-film lainnya yang mirip|str|
-|similarity_data|dataframe yang berisi nilai cosine similarity setiap film yang ada|object|
-|items|dataframe yang asli untuk mendapatkan nilai sebenarnuya|object|
+|anime_title|judul anime yang akan dicari judul-judul lain yang mirip|str|
+|similarity_data|dataframe yang berisi nilai cosine similarity setiap anime yang ada dalam dataset|object|
+|items|dataframe yang asli untuk mendapatkan nilai sebenarnya|object|
 |k|banyaknya jumlah film yang mirip|int|
 
 Berikut hasilnya yang diperoleh:
