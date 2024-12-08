@@ -27,17 +27,22 @@ Solusi yang dapat dilakukan untuk memenuhi goals proyek ini diantaranya sebagai 
 
 ## Data Understanding
 Dataset yang digunakan pada proyek kali ini dibuat oleh CooperUnion yang terakhir diperbarui ke Kaggle pada tahun 2016. Sumber dataset: [Anime Recommendations Database
-](https://www.kaggle.com/datasets/CooperUnion/anime-recommendations-database/data). Sumber data ini terdiri atas 2 set, anime dan rating. Pada dataset anime terdiri atas 12294 baris dan 7 kolom data. Kondisi khusus dari data:
+](https://www.kaggle.com/datasets/CooperUnion/anime-recommendations-database/data). Sumber data ini terdiri atas 2 set, anime dan rating. 
+
+Pada dataset anime terdiri atas 12294 baris dan 7 kolom data. Kondisi khusus dari data:
 - memiliki jenis tipe data yang beragam untuk kolom-kolom yang ada diantaranya float64, int64, dan object
 - Dataset anime terdiri atas 7 variabel. 3 variabel merupakan variabel numerik (anime_id dan member memiliki tipe data int64 sedangkan rating memiliki tipedata float), sedangkan sisanya merupakan variabel kategorikal.
 - terdapat data yang tidak memiliki kosong
 - tidak terdapat data duplikat
 
-Pada proyek ini, fitur yang digunakan adalah sebagai berikut beserta alasan:
+Pada dataset rating terdiri atas 7813737 baris dan 3 kolom data. tidak ada kondisi khusus dari data karena tidak memiliki nilai kosong.
 
+
+Pada proyek ini, fitur yang digunakan adalah sebagai berikut beserta alasan:
+<h3>Data anime</h3>
 |Nama|Jenis|Tipe Data|Alasan|Jumlah Nilai Unik|
 |----|-----|---------|------|-----------------|
-|anime_id|independent|int64|diperlukan untuk mencari film-film yang mirip dan mengembalikan nilai dalam bentuk id anime|12294|
+|anime_id|independent|int64|id judul anime. diperlukan untuk mencari film-film yang mirip dan mengembalikan nilai dalam bentuk id anime|12294|
 |name|dependent|object|judul anime|12292|
 |genre|dependent|object|genre anime|3264|
 |type|dependent|object|tipe anime (TV, Movie, OVA, ONA, dll)|6|
@@ -45,6 +50,12 @@ Pada proyek ini, fitur yang digunakan adalah sebagai berikut beserta alasan:
 |rating|dependent|float64|rata-rata rating anime dengan skala 10|598|
 |members|dependent|int64|jumlah anggota dalam komunitas anime tersebut|6706|
 
+<h3>Data rating</h3>
+|Nama|Jenis|Tipe Data|Alasan|Jumlah Nilai Unik|
+|----|-----|---------|------|-----------------|
+|user_id|dependent|int64|id user|73515|
+|anime_id|dependent|int64|id anime|11200|
+|rating|independent|int64|rating yang diberikan pada anime|11|
 
 Pada proyek ini,  tahapan EDA Univariate tidak dilakukan karena fitur utama untuk membuat model berbasis konten (content-based filtering) berdasarkan variabel genre yang memiliki tipe data list dalam bentuk string. Selain itu, satu anime dapat memiliki genre lebih dari satu. Hal ini akan menciptakan data overlapping memberikan interpretasi yang parsial pada interpretasi EDA.
 
@@ -53,7 +64,7 @@ Pada proyek ini,  tahapan EDA Univariate tidak dilakukan karena fitur utama untu
 Pada tahap ini perlu mempersiapkan data agar mudah diproses oleh model, apalagi jika masih mengandung kolom-kolom yang bertipe data object yang perlu dilakukan encoding untuk mengubahnya menjadi numerik supaya dapat dihitung nilai cosine similarity nya.
 
 Berikut merupakan aktifitas lainnya dilakukan pada tahap ini:
-
+Pada Data anime
 |Aktifitas|Alasan|Ukuran dataset semula|Ukuran dataset sesudah preproses|
 |---------|------|---------------------|--------------------------------|
 |Mengekstrak data-data genre yang merupakan list menjadi array unik|Nilai pada data genre merupakan list, sehingga perlu dibuat sebagai one hot encoding dari masing-masing genre|(12017,7)|(12017,7)|
@@ -65,10 +76,18 @@ Berikut merupakan aktifitas lainnya dilakukan pada tahap ini:
 |Melakukan one-hot encoding pada variabel type|Fitur type ditambahkan agar model dapat memberikan kemiripan yang lebih baik|(12017,50)|(12017,56)|
 |Menghapus kolom type, member, ratings|data member dan ratings tidak diperlukan dan kolom type sudah direpresentasikan dengan one-hot encoding|(12017,56)|(12017,53)|
 
+Pada data rating
+|Aktifitas|Alasan|Ukuran dataset semula|Ukuran dataset sesudah preproses|
+|---------|------|---------------------|--------------------------------|
+|Mengeliminisasi user yang tidak memberikan penilaian|user yang tidak memberikan penilaian dapat merusak model|(7813737,3)|(6337241,3)|
+|Mengeliminisasi anime_id yang tidak ada di dataset anime penilaian|menghindari error ketika pemilihan anime yang belum ditonton pada proses prediksi.|(6337241,3)|(6337146,3)|
+|Melakukan encoding pada data anime_id dan user_id|untuk membuat model mempelajari data lebih efektif|(6337146,3)|(6337146,3)|
+
+
 **catatan**
 - ***proyek ini tidak menggunakan vectorizer*** karena sudah terwakilili dengan hasil onehot encoding untuk kolom genre. hasil dari onehot encoding sudah seperti vektor yang dihasilkan dari binary count vectorizer. selain itu,  pada proyek kali ini, secara manual melakukan term-frequency karena dalam satu baris data memiliki nilai-nilai yang berbeda yang perlu diubah dulu agar dapat menjadi vektor.
 
-## Modeling
+## Modeling -- content-based filtering
 
 Pemodelan yang dipilih pada proyek ini adalah content-based filtering menggunakan cosine similarity karena implementasi content-based filtering dengan cosine similarity dapat cepat menghitung kesamaan antar film-film yang direpresentasikan dalam ruang vektor, sehingga sistem rekomendasi memberikan hasil dengan waktu respons yang cepat, berbeda jika membuat model sistem rekomendasi menggunakan deep learning yang membutuhkan biaya tinggi.
 
@@ -94,18 +113,16 @@ Berikut hasilnya yang diperoleh:
 <img width="1223" alt="Screenshot 2024-12-08 at 08 00 51" src="https://github.com/user-attachments/assets/e96e536c-8149-40b6-87fc-6252a6f5b8c0">
 
 
+Berdasarkan pengamatan input dan output diatas menunjukkan bahwa daftar film yang direkomendasikan memiliki genre yang hampir semuanya sama.
 
+## Modeling -- Collaborative filtering
+Collaborative filtering menghitung skor kecocokan antara penonton dan anime dengan teknik embedding. Pertama, proses embedding dilakukan terhadap data user dan anime. Selanjutnya,  operasi perkalian dot product dilakukan diantara embedding user dan anime. Selain itu, bias ditambahkan kepada setiap user dan anime. Skor kecocokan berada dalam skala [0,1] dengan fungsi aktivasi sigmoid. Model ini menggunakan Binary Crossentropy untuk menghitung loss function, Adam (Adaptive Moment Estimation) sebagai optimizer, dan root mean squared error (RMSE) sebagai metrics evaluation.
 
-Berdasarkan pengamatan input dan output diatas menunjukkan bahwa daftar film yang direkomendasikan memiliki genre yang hampir semuanya sama. semakin bawah, semakin sedikit kesamaan nilainya.
+Dalam pemodelan, digunakan data train, test split sebanyak 80% dan 20%
+
 
 ## Evaluation
-Yang dilakukan pada tahap ini diantaranya:
-- menampilkan pengamatan input dan output di sistem rekomendasi dengan membuat fungsi get_indices() untuk mencari letak-letak genre yang dimiliki film yang dimasukkan yang nanti diterapkan pada daftar hasil rekomendasi juga.
-- Menghitung performa dengan metrik Top-N Precision yang menilai seberapa baik sistem dalam merekomendasikan item yang relevan dalam daftar teratas (top-N) dari hasil rekomendasi.  $`Precision @ K = Number of Relevant Items in K / Total Number of Items in K`$
-  
-![top-n precision](https://github.com/user-attachments/assets/2d5cc4b5-2d56-4d48-a94a-fcc09bfc9f4a)
 
-Berdasarkan evaluasi diatas dapat diketahui bahwa posisi teratas akan memang seharusnya memiliki nilai precision@K yang paling tinggi dibanding dengan yang posisi bawah.
 
 Catatan:
 - solusi sudah menjawab problem statement karena telah membuat model untuk memberikan daftar film yang mirip dengan film yang dimasukkan
