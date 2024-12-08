@@ -86,11 +86,13 @@ Yang dilakukan pada tahap ini diantaranya:
 Berikut hasilnya yang diperoleh:
 
 **Nama anime yang dimasukkan**
-<img width="1072" alt="Screenshot 2024-12-08 at 07 24 25" src="https://github.com/user-attachments/assets/d4cb147d-bcbc-4b09-a58d-0a06d8b8cb71">
+<img width="1223" alt="Screenshot 2024-12-08 at 07 28 48" src="https://github.com/user-attachments/assets/377a19be-608a-4ae6-83ba-8540ae237ab9">
+
 
 
 **Daftar film yang direkomendasikan**
-<img width="1072" alt="Screenshot 2024-12-08 at 07 24 52" src="https://github.com/user-attachments/assets/331d3f1c-7be9-4fa6-b481-042eba2f0022">
+<img width="1223" alt="Screenshot 2024-12-08 at 07 29 11" src="https://github.com/user-attachments/assets/b9c6a153-bd14-4d5d-ae70-2fde31766eef">
+
 
 
 Berdasarkan pengamatan input dan output diatas menunjukkan bahwa daftar film yang direkomendasikan memiliki genre yang hampir semuanya sama. semakin bawah, semakin sedikit kesamaan nilainya.
