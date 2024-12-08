@@ -124,7 +124,7 @@ Dalam pemodelan, digunakan data train, test split sebanyak 80% dan 20%
 ## Evaluation
 <img width="1360" alt="Screenshot 2024-12-08 at 16 39 18" src="https://github.com/user-attachments/assets/72f04601-b55e-4087-9932-99e99c59c9fa">
 Berdasarkan pemodelan data, root mean square error model sekitar 0.13. Nilai ini sangat bagus untuk pemodelan sistem rekomendasi
-![image](https://github.com/user-attachments/assets/2c117421-058e-4630-8154-83ca54afdfee)
+<img width="1360" alt="Tabel" src="[https://github.com/user-attachments/assets/72f04601-b55e-4087-9932-99e99c59c9fa](https://github.com/user-attachments/assets/2c117421-058e-4630-8154-83ca54afdfee)">
 
 
 <img width="1360" alt="Screenshot 2024-12-08 at 16 44 05" src="https://github.com/user-attachments/assets/d2e61296-93ed-4da8-ac61-d2ae4f1bed79">
