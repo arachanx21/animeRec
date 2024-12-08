@@ -91,7 +91,8 @@ Berikut hasilnya yang diperoleh:
 
 
 **Daftar film yang direkomendasikan**
-<img width="1223" alt="Screenshot 2024-12-08 at 07 29 11" src="https://github.com/user-attachments/assets/b9c6a153-bd14-4d5d-ae70-2fde31766eef">
+<img width="1223" alt="Screenshot 2024-12-08 at 08 00 51" src="https://github.com/user-attachments/assets/e96e536c-8149-40b6-87fc-6252a6f5b8c0">
+
 
 
 
