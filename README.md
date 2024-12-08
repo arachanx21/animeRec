@@ -39,7 +39,8 @@ Pada dataset rating terdiri atas 7813737 baris dan 3 kolom data. tidak ada kondi
 
 
 Pada proyek ini, fitur yang digunakan adalah sebagai berikut beserta alasan:
-<h3>Data anime</h3>
+
+Data anime
 |Nama|Jenis|Tipe Data|Alasan|Jumlah Nilai Unik|
 |----|-----|---------|------|-----------------|
 |anime_id|independent|int64|id judul anime. diperlukan untuk mencari film-film yang mirip dan mengembalikan nilai dalam bentuk id anime|12294|
@@ -50,7 +51,8 @@ Pada proyek ini, fitur yang digunakan adalah sebagai berikut beserta alasan:
 |rating|dependent|float64|rata-rata rating anime dengan skala 10|598|
 |members|dependent|int64|jumlah anggota dalam komunitas anime tersebut|6706|
 
-<h3>Data rating</h3>
+
+Data rating
 |Nama|Jenis|Tipe Data|Alasan|Jumlah Nilai Unik|
 |----|-----|---------|------|-----------------|
 |user_id|dependent|int64|id user|73515|
@@ -124,7 +126,7 @@ Dalam pemodelan, digunakan data train, test split sebanyak 80% dan 20%
 ## Evaluation
 <img width="1360" alt="Screenshot 2024-12-08 at 16 39 18" src="https://github.com/user-attachments/assets/72f04601-b55e-4087-9932-99e99c59c9fa">
 Berdasarkan pemodelan data, root mean square error model sekitar 0.13. Nilai ini sangat bagus untuk pemodelan sistem rekomendasi
-<img width="1360" alt="Tabel" src="[https://github.com/user-attachments/assets/72f04601-b55e-4087-9932-99e99c59c9fa](https://github.com/user-attachments/assets/2c117421-058e-4630-8154-83ca54afdfee)">
+<img width="601" alt="Screenshot 2024-12-09 at 05 40 32" src="https://github.com/user-attachments/assets/b3901ce1-9252-4119-840b-97768528e578">
 
 
 <img width="1360" alt="Screenshot 2024-12-08 at 16 44 05" src="https://github.com/user-attachments/assets/d2e61296-93ed-4da8-ac61-d2ae4f1bed79">
