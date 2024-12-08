@@ -13,17 +13,22 @@ Dalam merumuskan proyek ini dibangun penyataan masalah, tujuan, dan pernyataan s
 
 ### Problem Statements
 
-Berdasarkan latar belakang di atas, rincian masalahnya adalah **bagaimana memanfaatkan data amime agar dapat meningkatkan kepuasan penonton mengembangkan sistem rekomendasi film yang lebih relevan dengan genre kesukaan pengguna?**
+Berdasarkan latar belakang di atas, berikut adalah rincian masalah:
+* Berdasarkan data anime-anime yang ada, bagaimana membuat sistem rekomendasi anime yang dipersonalisasi dengan teknik content-based filtering?
+* Dengan data user rating  pada anime, bagaimana perusahaan dapat merekomendasikan anime lain yang mungkin disukai dan belum pernah ditonton oleh penonton dengan collaborative filtering?
 
 ### Goals
 
-Untuk menjawab pertanyaan masalah di atas, maka tujuan dari proyek ini adalah **mampu mengembangkan model yang sepresisi mungkin dalam memberikan daftar film sesuai genre yang disukai oleh penonton dengan model yang berbasis dengan konten dan user (collaborative filtering) dengan model yang mencapai metrik root mean square dibawah 0.15%**
+Untuk menjawab pertanyaan masalah di atas, maka tujuan dari proyek ini adalah:
+* Menghasilkan sejumlah rekomendasi anime yang dipersonalisasi untuk pengguna dengan teknik content-based filtering.
+* Mampu mengembangkan model yang menghasilkan sejumlah rekomendasi anime yang sesuai dengan preferensi pengguna dan belum pernah ditonton sebelumnya dengan teknik collaborative filtering dengan model yang mencapai metrik root mean square dibawah 0.15
+
 
 ### Solution statements
 
 Solusi yang dapat dilakukan untuk memenuhi goals proyek ini diantaranya sebagai berikut:
-- Mengolah data teks berkaitan dengan informasi film menjadi numerikal yang bisa dihitung nilai kemiripannya
-- Menampilkan detail data yang diuji dengan hasilnya untuk validasi kebenaran dari nilai metriknya
+- Mengolah data teks berkaitan dengan informasi anime menjadi numerikal yang bisa dihitung nilai kemiripannya
+- membuat sistem rekomendasi collaborative filtering berdasarkan data rating penonton.
 
 ## Data Understanding
 Dataset yang digunakan pada proyek kali ini dibuat oleh CooperUnion yang terakhir diperbarui ke Kaggle pada tahun 2016. Sumber dataset: [Anime Recommendations Database
@@ -131,11 +136,11 @@ Berdasarkan pemodelan data, root mean square error model sekitar 0.13. Nilai ini
 
 <img width="1360" alt="Screenshot 2024-12-08 at 16 44 05" src="https://github.com/user-attachments/assets/d2e61296-93ed-4da8-ac61-d2ae4f1bed79">
 
-Catatan:
-- solusi sudah menjawab problem statement karena telah membuat model untuk memberikan daftar film yang mirip dengan film yang dimasukkan
-- sudah mencapai goals yang diharapkan karena berhasil membangun model yang memiliki presisi lebih dari 85%
-- solusi yang direncakan berdampak pada hasil karena dapat model bisa berjalan dengan cepat dengan penentuan kolom genres dan content_ratings yang telah berbentuk binary count vector
 
-## References
+## Penutup
+- solusi sudah menjawab problem statement karena telah membuat model untuk memberikan daftar anime yang mirip dengan anime yang ingin 
+- sudah mencapai goals yang diharapkan karena berhasil membangun model collaborative filtering yang memiliki root mean square error di bawah 0.15
+
+
 
 
