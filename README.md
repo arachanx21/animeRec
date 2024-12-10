@@ -158,11 +158,13 @@ Collaborative filtering ini menggunakan RecommenderNet. Model ini menghitung sko
 
 Model ini menggunakan Binary Crossentropy untuk menghitung loss function, Adam (Adaptive Moment Estimation) sebagai optimizer, dan root mean squared error (RMSE) sebagai metrics evaluation.
 
-Dalam pemodelan, digunakan data train, test split sebanyak 80% dan 20%
+Dalam pemodelan, digunakan data train, test split sebanyak 80% dan 20%.
 
+Untuk mendapatkan rekomendasi buku, untuk sementara sampel user diambil secara acak dan definisikan variabel anime_not_watched yang merupakan anime-anime yang belum pernah ditonton oleh penonton , data-data dalam anime_not_watched inilah yang akan menjadi anime_not_watched yang rekomendasikan. Variabel anime_not_watched diperoleh dengan menggunakan operator bitwise (~) pada variabel anime_watched_by_user. Sebelumnya, penonton telah memberikan rating pada anime-anime yang mereka tonton. Rating ini akan digunakan untuk membuat rekomendasi anime yang mungkin cocok untuk penonton. Kemudian, untuk memperoleh rekomendasi anime, menggunakan fungsi model.predict() dari library Keras. Hasil rekomendasinya adalah seperti berikut.
+
+<img width="1360" alt="Screenshot 2024-12-08 at 16 39 18" src="https://github.com/user-attachments/assets/72f04601-b55e-4087-9932-99e99c59c9fa">
 
 ## Evaluation
-<img width="1360" alt="Screenshot 2024-12-08 at 16 39 18" src="https://github.com/user-attachments/assets/72f04601-b55e-4087-9932-99e99c59c9fa">
 Berdasarkan pemodelan data, root mean square error model sekitar 0.13. Nilai ini sangat bagus untuk pemodelan sistem rekomendasi
 <img width="601" alt="Screenshot 2024-12-09 at 05 40 32" src="https://github.com/user-attachments/assets/b3901ce1-9252-4119-840b-97768528e578">
 
