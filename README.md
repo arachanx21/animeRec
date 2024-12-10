@@ -68,9 +68,26 @@ Pada proyek ini,  tahapan EDA Univariate tidak dilakukan karena fitur utama untu
 
 
 ## Data Preparation
-Pada tahap ini perlu mempersiapkan data agar mudah diproses oleh model, apalagi jika masih mengandung kolom-kolom yang bertipe data object yang perlu dilakukan encoding untuk mengubahnya menjadi numerik supaya dapat dihitung nilai cosine similarity nya.
+# Content Based Filtering
+# Handling missing value
+Jumlah data bernilai kosong dicek menggunakan fungsi built-in df.isnull().sum() pada variabel anime. Terdapat 62 data kosong dalam variabel genre, 25 dalam variabel type dan 230  di rating. Data-data yang tidak memiliki nilai tersebut dihapus dari dataset.
 
-Berikut merupakan aktifitas lainnya dilakukan pada tahap ini:
+# Handling duplicates
+Jumlah data awal dan akhir setelah pengecekan duplikat tidak berubah. Tidak ada data duplikat dalam dataset.
+
+# Content-based filtering preparation
+Anime direkomendasikan berdasarkan kemiripan genre dan type (TV, Movie, OVA, dll) rata-rata yang diberikan oleh para penonton. Untuk menghitung cosine similarity, data perlu disiapkan dalam array vektor.
+
+# TF-IDF Vectorizer(Manual) 
+TF-IDF pada genre dilakukan dengan cara mengekstrak data teks dalam data genre dan dimasukkan ke dalam list. Jika genre belum ada di list, item genre akan ditambahkan ke dalam list genres. Setelah semua genre unik dipopulasikan ke dalam list, dataframe dibuat berdasarkan list genre sebagai kolom dengan masing-masing nilai data bernilai 0 (one-hot encoding). 
+
+Dataframe digabungkan (concatenate) dengan anime_id agar jumlah baris data sebanyak baris data anime. Karena dataframe ini digabungkan, nilai data dalam kolom-kolom genre tidak memiliki nilai (NaN). Nilai NaN ini digantikan dengan nilai 0 agar ketika iterasi data genre, genre yang ada dalam teks dapat diberikan nilai 1 sehingga TF-IDF Vectorizer dapat tercapai. Setelah itu, data digabungkan dengan data anime sebelumnya berdasarkan anime_id dan diiterasikan data-data dalam kolom untuk melakukan TF-IDF pada kolom-kolom yang telah dilakukan one-hot encoding. TF-IDF Vectorizer selesai
+
+untuk vektorisasi data type, data rating dilakukan one-hot encoding. Setelah itu, data type dan rating dihapus. Data sudah siap digunakan untuk analisis cosine similariti.
+
+
+Secara ringkas, Berikut merupakan aktifitas yang dilakukan pada tahap ini:
+
 Pada Data anime
 |Aktifitas|Alasan|Ukuran dataset semula|Ukuran dataset sesudah preproses|
 |---------|------|---------------------|--------------------------------|
@@ -83,16 +100,28 @@ Pada Data anime
 |Melakukan one-hot encoding pada variabel type|Fitur type ditambahkan agar model dapat memberikan kemiripan yang lebih baik|(12017,50)|(12017,56)|
 |Menghapus kolom type, member, ratings|data member dan ratings tidak diperlukan dan kolom type sudah direpresentasikan dengan one-hot encoding|(12017,56)|(12017,53)|
 
+## Data Preparation
+#  Collaborative Filtering
+
+# Handling missing value
+Dalam data user, terdapat penonton yang tidak memberikan penilaian pada anime yang ditonton dengan nilai -1. Data-data ini dihilangkan. Selain itu, karena terdapat anime-anime yang terhapus di dataset anime yang telah dipersiapkan. data anime_id yang tidak ada dalam dataset anime pada dataset ini juga dihapus.
+
+# Handling duplicates
+data duplikat dicek dengan user.drop_duplicates() dan terdapat 1 data duplikat dalam dataset.
+
+# Encoding anime_id dan user_id
+Encoding dilakukan dengan membuat urutan dictionary anime_id dan user_id sekaligus anti-decoding nya. Hal ini untuk membuat model mempelajari data lebih efektif
+
+# train,test data split
+
 Pada data rating
 |Aktifitas|Alasan|Ukuran dataset semula|Ukuran dataset sesudah preproses|
 |---------|------|---------------------|--------------------------------|
 |Mengeliminisasi user yang tidak memberikan penilaian|user yang tidak memberikan penilaian dapat merusak model|(7813737,3)|(6337241,3)|
 |Mengeliminisasi anime_id yang tidak ada di dataset anime penilaian|menghindari error ketika pemilihan anime yang belum ditonton pada proses prediksi.|(6337241,3)|(6337146,3)|
+|Mengeliminisasi data duplikat|agar pemodelan menjadi lebih handal|(6337146,3)(6337145,3)|
 |Melakukan encoding pada data anime_id dan user_id|untuk membuat model mempelajari data lebih efektif|(6337146,3)|(6337146,3)|
 
-
-**catatan**
-- ***proyek ini tidak menggunakan vectorizer*** karena sudah terwakilili dengan hasil onehot encoding untuk kolom genre. hasil dari onehot encoding sudah seperti vektor yang dihasilkan dari binary count vectorizer. selain itu,  pada proyek kali ini, secara manual melakukan term-frequency karena dalam satu baris data memiliki nilai-nilai yang berbeda yang perlu diubah dulu agar dapat menjadi vektor.
 
 ## Modeling -- content-based filtering
 
@@ -123,7 +152,9 @@ Berikut hasilnya yang diperoleh:
 Berdasarkan pengamatan input dan output diatas menunjukkan bahwa daftar film yang direkomendasikan memiliki genre yang hampir semuanya sama.
 
 ## Modeling -- Collaborative filtering
-Collaborative filtering menghitung skor kecocokan antara penonton dan anime dengan teknik embedding. Pertama, proses embedding dilakukan terhadap data user dan anime. Selanjutnya,  operasi perkalian dot product dilakukan diantara embedding user dan anime. Selain itu, bias ditambahkan kepada setiap user dan anime. Skor kecocokan berada dalam skala [0,1] dengan fungsi aktivasi sigmoid. Model ini menggunakan Binary Crossentropy untuk menghitung loss function, Adam (Adaptive Moment Estimation) sebagai optimizer, dan root mean squared error (RMSE) sebagai metrics evaluation.
+Collaborative filtering ini menggunakan RecommenderNet. Model ini menghitung skor kecocokan antara penonton dan anime dengan teknik embedding. Pertama, proses embedding dilakukan terhadap data user dan anime. Selanjutnya,  operasi perkalian dot product dilakukan diantara embedding user dan anime. Selain itu, bias ditambahkan kepada setiap user dan anime. Skor kecocokan berada dalam skala [0,1] dengan fungsi aktivasi sigmoid. 
+
+Model ini menggunakan Binary Crossentropy untuk menghitung loss function, Adam (Adaptive Moment Estimation) sebagai optimizer, dan root mean squared error (RMSE) sebagai metrics evaluation.
 
 Dalam pemodelan, digunakan data train, test split sebanyak 80% dan 20%
 
