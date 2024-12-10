@@ -146,10 +146,8 @@ Berikut hasilnya yang diperoleh:
 <img width="1223" alt="Screenshot 2024-12-08 at 07 28 48" src="https://github.com/user-attachments/assets/377a19be-608a-4ae6-83ba-8540ae237ab9">
 
 
-
 **Daftar film yang direkomendasikan**
 <img width="1223" alt="Screenshot 2024-12-08 at 08 00 51" src="https://github.com/user-attachments/assets/e96e536c-8149-40b6-87fc-6252a6f5b8c0">
-
 
 Berdasarkan pengamatan input dan output diatas menunjukkan bahwa daftar film yang direkomendasikan memiliki genre yang hampir semuanya sama.
 
@@ -161,12 +159,23 @@ Model ini menggunakan Binary Crossentropy untuk menghitung loss function, Adam (
 Dalam pemodelan, digunakan data train, test split sebanyak 80% dan 20%.
 
 Untuk mendapatkan rekomendasi buku, untuk sementara sampel user diambil secara acak dan definisikan variabel anime_not_watched yang merupakan anime-anime yang belum pernah ditonton oleh penonton , data-data dalam anime_not_watched inilah yang akan menjadi anime_not_watched yang rekomendasikan. Variabel anime_not_watched diperoleh dengan menggunakan operator bitwise (~) pada variabel anime_watched_by_user. Sebelumnya, penonton telah memberikan rating pada anime-anime yang mereka tonton. Rating ini akan digunakan untuk membuat rekomendasi anime yang mungkin cocok untuk penonton. Kemudian, untuk memperoleh rekomendasi anime, menggunakan fungsi model.predict() dari library Keras. Hasil rekomendasinya adalah seperti berikut.
+<img width="1014" alt="Screenshot 2024-12-11 at 06 40 43" src="https://github.com/user-attachments/assets/08172215-5dd7-4b08-9a61-c9a9f18b0c9f">
 
 
 
 ## Evaluation
-<img width="601" alt="Screenshot 2024-12-09 at 05 40 32" src="https://github.com/user-attachments/assets/b3901ce1-9252-4119-840b-97768528e578">
-Berdasarkan pemodelan data, root mean square error model sekitar 0.13. Nilai ini sangat bagus untuk pemodelan sistem rekomendasi
+### Collaborative Filtering
+Model Collaborative filtering dibangung dengan RecommenderNet yang memanfaatkan embedding layer. Metrik yang digunakan adalah Root Mean Squared Error (RMSE). Perhitungan RMSE dapat dilakukan menggunakan rumus berikut,
+
+<img width="237" alt="Screenshot 2024-12-11 at 06 43 16" src="https://github.com/user-attachments/assets/930e7853-dc25-4cdc-8937-c000de5c6a16">
+
+Di mana, nilai  n  merupakan jumlah dataset, nilai  y_i  adalah nilai sebenarnya, dan  y_pred  yaitu nilai prediksinya terdahap  i  sebagai urutan data dalam dataset.
+
+Semakin kecil nilai RMSE, semakin baik model memprediksi. 
+
+<img width="676" alt="Screenshot 2024-12-11 at 06 45 38" src="https://github.com/user-attachments/assets/046bcc7f-a53f-4bd7-90bc-d391a0f9c17d">
+
+Berdasarkan plot model RMSE, model tidak menunjukkan overfitting atau underfitting. Overfitting biasanya akan terjadi jika nilai RMSE pada data pelatihan terus menurun sementara RMSE pada data validasi meningkat. Sebaliknya, Underfitting biasanya terjadi jika nilai RMSE baik pada data pelatihan maupun data validasi tinggi. Dalam kasus ini, baik RMSE pada data pelatihan maupun data validasi menurun seiring dengan berjalannya epoch dan RMSE pada data validasi juga mencapai tingkat yang rendah, yang menunjukkan bahwa model secara umum berhasil melakukan prediksi dengan baik. Root mean square error model sekitar 0.13. Nilai ini sangat bagus untuk pemodelan sistem rekomendasi
 
 
 ## Penutup
