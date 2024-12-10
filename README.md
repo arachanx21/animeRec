@@ -68,17 +68,17 @@ Pada proyek ini,  tahapan EDA Univariate tidak dilakukan karena fitur utama untu
 
 
 ## Data Preparation
-# Content Based Filtering
-# Handling missing value
+### Content Based Filtering
+### Handling missing value
 Jumlah data bernilai kosong dicek menggunakan fungsi built-in df.isnull().sum() pada variabel anime. Terdapat 62 data kosong dalam variabel genre, 25 dalam variabel type dan 230  di rating. Data-data yang tidak memiliki nilai tersebut dihapus dari dataset.
 
-# Handling duplicates
+### Handling duplicates
 Jumlah data awal dan akhir setelah pengecekan duplikat tidak berubah. Tidak ada data duplikat dalam dataset.
 
-# Content-based filtering preparation
+### Content-based filtering preparation
 Anime direkomendasikan berdasarkan kemiripan genre dan type (TV, Movie, OVA, dll) rata-rata yang diberikan oleh para penonton. Untuk menghitung cosine similarity, data perlu disiapkan dalam array vektor.
 
-# TF-IDF Vectorizer(Manual) 
+### TF-IDF Vectorizer(Manual) 
 TF-IDF pada genre dilakukan dengan cara mengekstrak data teks dalam data genre dan dimasukkan ke dalam list. Jika genre belum ada di list, item genre akan ditambahkan ke dalam list genres. Setelah semua genre unik dipopulasikan ke dalam list, dataframe dibuat berdasarkan list genre sebagai kolom dengan masing-masing nilai data bernilai 0 (one-hot encoding). 
 
 Dataframe digabungkan (concatenate) dengan anime_id agar jumlah baris data sebanyak baris data anime. Karena dataframe ini digabungkan, nilai data dalam kolom-kolom genre tidak memiliki nilai (NaN). Nilai NaN ini digantikan dengan nilai 0 agar ketika iterasi data genre, genre yang ada dalam teks dapat diberikan nilai 1 sehingga TF-IDF Vectorizer dapat tercapai. Setelah itu, data digabungkan dengan data anime sebelumnya berdasarkan anime_id dan diiterasikan data-data dalam kolom untuk melakukan TF-IDF pada kolom-kolom yang telah dilakukan one-hot encoding. TF-IDF Vectorizer selesai
@@ -86,7 +86,7 @@ Dataframe digabungkan (concatenate) dengan anime_id agar jumlah baris data seban
 untuk vektorisasi data type, data rating dilakukan one-hot encoding. Setelah itu, data type dan rating dihapus. Data sudah siap digunakan untuk analisis cosine similariti.
 
 
-Secara ringkas, Berikut merupakan aktifitas yang dilakukan pada tahap ini:
+Secara ringkas, Berikut merupakan aktifitas yang dilakukan pada tahap Data Preparation:
 
 Pada Data anime
 |Aktifitas|Alasan|Ukuran dataset semula|Ukuran dataset sesudah preproses|
@@ -100,8 +100,7 @@ Pada Data anime
 |Melakukan one-hot encoding pada variabel type|Fitur type ditambahkan agar model dapat memberikan kemiripan yang lebih baik|(12017,50)|(12017,56)|
 |Menghapus kolom type, member, ratings|data member dan ratings tidak diperlukan dan kolom type sudah direpresentasikan dengan one-hot encoding|(12017,56)|(12017,53)|
 
-## Data Preparation
-###  Collaborative Filtering
+##  Collaborative Filtering
 
 ### Handling missing value
 Dalam data user, terdapat penonton yang tidak memberikan penilaian pada anime yang ditonton dengan nilai -1. Data-data ini dihilangkan. Selain itu, karena terdapat anime-anime yang terhapus di dataset anime yang telah dipersiapkan. data anime_id yang tidak ada dalam dataset anime pada dataset ini juga dihapus.
@@ -122,7 +121,6 @@ Pada data rating
 |Mengeliminisasi user yang tidak memberikan penilaian|user yang tidak memberikan penilaian dapat merusak model|(7813737,3)|(6337241,3)|
 |Mengeliminisasi anime_id yang tidak ada di dataset anime penilaian|menghindari error ketika pemilihan anime yang belum ditonton pada proses prediksi.|(6337241,3)|(6337146,3)|
 |Mengeliminisasi data duplikat|agar pemodelan menjadi lebih handal|(6337146,3)|(6337145,3)|
-|Mengeliminasi outlier|Membuat model menjadi lebih handal|(6337145,3)|(6251161,3)|
 |Melakukan encoding pada data anime_id dan user_id|untuk membuat model mempelajari data lebih efektif|(6337145,3)|(6337145,3)|
 
 
