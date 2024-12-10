@@ -101,26 +101,30 @@ Pada Data anime
 |Menghapus kolom type, member, ratings|data member dan ratings tidak diperlukan dan kolom type sudah direpresentasikan dengan one-hot encoding|(12017,56)|(12017,53)|
 
 ## Data Preparation
-#  Collaborative Filtering
+###  Collaborative Filtering
 
-# Handling missing value
+### Handling missing value
 Dalam data user, terdapat penonton yang tidak memberikan penilaian pada anime yang ditonton dengan nilai -1. Data-data ini dihilangkan. Selain itu, karena terdapat anime-anime yang terhapus di dataset anime yang telah dipersiapkan. data anime_id yang tidak ada dalam dataset anime pada dataset ini juga dihapus.
 
-# Handling duplicates
+### Handling duplicates
 data duplikat dicek dengan user.drop_duplicates() dan terdapat 1 data duplikat dalam dataset.
 
-# Encoding anime_id dan user_id
+### Encoding anime_id dan user_id
 Encoding dilakukan dengan membuat urutan dictionary anime_id dan user_id sekaligus anti-decoding nya. Hal ini untuk membuat model mempelajari data lebih efektif
 
-# train,test data split
+### train,test data split
+Data user yang telah dipersiapkan dipisahkan menjadi data training dan data test untuk pemodelan sistem rekomendasi. data user_id dan anime_id digunakan sebagai fitur, sedangkan rating digunakan sebagai target dalam pemodelan ini. Setelah data dipisah menjadi train dan test menggunakan library sklearn, terdapat 5069716 data training dan 1267429 data testing.
 
+Secara ringkas:
 Pada data rating
 |Aktifitas|Alasan|Ukuran dataset semula|Ukuran dataset sesudah preproses|
 |---------|------|---------------------|--------------------------------|
 |Mengeliminisasi user yang tidak memberikan penilaian|user yang tidak memberikan penilaian dapat merusak model|(7813737,3)|(6337241,3)|
 |Mengeliminisasi anime_id yang tidak ada di dataset anime penilaian|menghindari error ketika pemilihan anime yang belum ditonton pada proses prediksi.|(6337241,3)|(6337146,3)|
-|Mengeliminisasi data duplikat|agar pemodelan menjadi lebih handal|(6337146,3)(6337145,3)|
-|Melakukan encoding pada data anime_id dan user_id|untuk membuat model mempelajari data lebih efektif|(6337146,3)|(6337146,3)|
+|Mengeliminisasi data duplikat|agar pemodelan menjadi lebih handal|(6337146,3)|(6337145,3)|
+|Mengeliminasi outlier|Membuat model menjadi lebih handal|(6337145,3)|(6251161,3)|
+|Melakukan encoding pada data anime_id dan user_id|untuk membuat model mempelajari data lebih efektif|(6337145,3)|(6337145,3)|
+
 
 
 ## Modeling -- content-based filtering
@@ -169,8 +173,8 @@ Berdasarkan pemodelan data, root mean square error model sekitar 0.13. Nilai ini
 
 
 ## Penutup
-- solusi sudah menjawab problem statement karena telah membuat model untuk memberikan daftar anime yang mirip dengan anime yang ingin 
-- sudah mencapai goals yang diharapkan karena berhasil membangun model collaborative filtering yang memiliki root mean square error di bawah 0.15
+- model content-based filtering memberikan daftar anime rekomendsasi yang mirip berdasarkan genre anime yang ditonton oleh penonton. 
+- model collaborative filtering berhasil memberikan rekomendasi berdasarkan user dan anime yang ditonton oleh penonton lain dengan baik (model memiliki root mean square error di bawah 0.15)
 
 
 
