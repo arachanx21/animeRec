@@ -164,6 +164,9 @@ Untuk mendapatkan rekomendasi buku, untuk sementara sampel user diambil secara a
 
 
 ## Evaluation
+### Content-Based filtering
+
+
 ### Collaborative Filtering
 Model Collaborative filtering dibangung dengan RecommenderNet yang memanfaatkan embedding layer. Metrik yang digunakan adalah Root Mean Squared Error (RMSE). Perhitungan RMSE dapat dilakukan menggunakan rumus berikut,
 
@@ -179,7 +182,7 @@ Berdasarkan plot model RMSE, model tidak menunjukkan overfitting atau underfitti
 
 
 ## Penutup
-- model content-based filtering memberikan daftar anime rekomendsasi yang mirip berdasarkan genre anime yang ditonton oleh penonton. 
+- model content-based filtering memberikan daftar anime rekomendsasi yang mirip berdasarkan genre dan tipe anime yang ditonton oleh penonton. 
 - model collaborative filtering berhasil memberikan rekomendasi berdasarkan user dan anime yang ditonton oleh penonton lain dengan baik (model memiliki root mean square error di bawah 0.15)
 
 
