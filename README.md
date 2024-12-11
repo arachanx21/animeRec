@@ -159,12 +159,23 @@ Model ini menggunakan Binary Crossentropy untuk menghitung loss function, Adam (
 Dalam pemodelan, digunakan data train, test split sebanyak 80% dan 20%.
 
 Untuk mendapatkan rekomendasi buku, untuk sementara sampel user diambil secara acak dan definisikan variabel anime_not_watched yang merupakan anime-anime yang belum pernah ditonton oleh penonton , data-data dalam anime_not_watched inilah yang akan menjadi anime_not_watched yang rekomendasikan. Variabel anime_not_watched diperoleh dengan menggunakan operator bitwise (~) pada variabel anime_watched_by_user. Sebelumnya, penonton telah memberikan rating pada anime-anime yang mereka tonton. Rating ini akan digunakan untuk membuat rekomendasi anime yang mungkin cocok untuk penonton. Kemudian, untuk memperoleh rekomendasi anime, menggunakan fungsi model.predict() dari library Keras. Hasil rekomendasinya adalah seperti berikut.
+
 <img width="1014" alt="Screenshot 2024-12-11 at 06 40 43" src="https://github.com/user-attachments/assets/08172215-5dd7-4b08-9a61-c9a9f18b0c9f">
 
 
 
 ## Evaluation
 ### Content-Based filtering
+Padal Content-based filtering, Precision digunakan sebagai metrics dalam pemodelan. Precision dapat dihitung dengan membandingkan jumlah anime yang relevan dengan jumlah anime yang direkomendasikan.
+
+Dalam kasus ini, anime Toaru Kagaku no Railgun digunakan sebagai sampel. Anime ini merupakan TV series (type) dengan genre Action, Sci-fi, Super Power
+
+<img width="551" alt="Screenshot 2024-12-11 at 10 09 13" src="https://github.com/user-attachments/assets/4adb4554-8be0-4d5b-b779-29f3317bf652">
+
+Berikut ini adalah rekomendasi yang diberikan oleh model sistem rekomendasi
+<img width="565" alt="Screenshot 2024-12-11 at 10 11 47" src="https://github.com/user-attachments/assets/6d5ba2b0-ba5c-4924-9602-1e9978959e71">
+
+Berdasarkan hasil sistem rekomendasi, seluruh anime merupakan TV series (type) dan genre anime semuanya memiliki genre Action, Sci-fi, dan Super Power. Selain itu, pada urutan-urutan awal, genre anime yang direkomendasikan sama percis dengan genre anime yang telah ditonton, dilanjutkan dengan genre-genre tambahan tanpa mengurangi relevansi dari anime yang direkomendasikan. Sehingga berdasarkan hasil rekomendasi yang diberikan, 10 dari 10 data memberikan rekomendasi anime yang relevan, metrik precision dalam model content-based filtering ini adalah 100%
 
 
 ### Collaborative Filtering
@@ -182,7 +193,7 @@ Berdasarkan plot model RMSE, model tidak menunjukkan overfitting atau underfitti
 
 
 ## Penutup
-- model content-based filtering memberikan daftar anime rekomendsasi yang mirip berdasarkan genre dan tipe anime yang ditonton oleh penonton. 
+- model content-based filtering memberikan daftar anime rekomendsasi yang mirip berdasarkan genre dan tipe anime yang ditonton oleh penonton. Hal ini dapat memberikan pilihan-pilihan anime kepada penonton lebih terpersonalisasi. 
 - model collaborative filtering berhasil memberikan rekomendasi berdasarkan user dan anime yang ditonton oleh penonton lain dengan baik (model memiliki root mean square error di bawah 0.15)
 
 
